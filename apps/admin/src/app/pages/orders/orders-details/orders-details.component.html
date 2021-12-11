@@ -1,0 +1,88 @@
+<p-toast></p-toast>
+<div class="admin">
+  <div class="page">
+    <p-card [header]="'Order Details'" subheader="Change order status here">
+      <p-fieldset legend="Order Details" [toggleable]="true" styleClass="mb-4">
+        <!-- <div class="grid" *ngIf="order"> -->
+        <div class="grid">
+          <div class="col-4">
+            <h5>Order ID</h5>
+            <!-- <p>1223423535645645</p> -->
+            <p>{{ order.id }}</p>
+          </div>
+          <div class="col-4">
+            <h5>Order Date</h5>
+            <!-- <p>21/11/2021</p> -->
+            <p>{{ order.dateOrdered | date: 'short' }}</p>
+          </div>
+          <div class="col-4">
+            <h5>Order Status</h5>
+            <p-dropdown [options]="orderStatuses" optionLabel="name" optionValue="id" [(ngModel)]="selectedStatus" (onChange)="onStatusChanged($event)"></p-dropdown>
+          </div>
+          <div class="col-4">
+            <h5>Order Total Price</h5>
+            <!-- <p>$ 300</p> -->
+            <p>{{ order.totalPrice | currency }}</p>
+          </div>
+        </div>
+      </p-fieldset>
+      <p-fieldset legend="Order Items" [toggleable]="true" styleClass="mb-4">
+        <div class="grid mb-5">
+          <div class="col-2 p-text-bold" style="font-weight: bold">Name</div>
+          <div class="col-2 p-text-bold" style="font-weight: bold">Brand</div>
+          <div class="col-2 p-text-bold" style="font-weight: bold">Category</div>
+          <div class="col-2 p-text-bold" style="font-weight: bold">Price</div>
+          <div class="col-2 p-text-bold" style="font-weight: bold">Quantity</div>
+          <div class="col-2 p-text-bold" style="font-weight: bold">SubTotal</div>
+        </div>
+        <!-- <div class="grid mb-5"> -->
+        <div class="grid mb-5" *ngFor="let orderItem of order.orderItems">
+          <!-- <div class="col-2">Product One</div> -->
+          <div class="col-2">{{ orderItem.product.name }}</div>
+          <!-- <div class="col-2">Brand One </div> -->
+          <div class="col-2">{{ orderItem.product.brand }}</div>
+          <!-- <div class="col-2">Clothes</div> -->
+          <div class="col-2">{{ orderItem.product.category.name }}</div>
+          <!-- <div class="col-2">$500</div> -->
+          <div class="col-2">{{ orderItem.product.price | currency }}</div>
+          <!-- <div class="col-2">2</div> -->
+          <div class="col-2">{{ orderItem.quantity }}</div>
+          <!-- <div class="col-2">$1000 </div> -->
+          <div class="col-2"> {{ orderItem.product.price * orderItem.quantity | currency }}</div>
+        </div>
+        <hr style="margin-bottom: 10px;">
+        <div class="grid" style="color: green">
+          <div class="col-2 offset-8" style="font-weight: bold;">Total Price</div>
+          <!-- <div class="col-2">$1100</div> -->
+          <div class="col-2">{{ order.totalPrice | currency }}</div>
+        </div>
+      </p-fieldset>
+      <p-fieldset legend="Order Address" [toggleable]="true" styleClass="mb-4">
+        <div class="grid">
+          <div class="col-4">
+            <h5 style="margin-bottom: 10px;">Order Address</h5>
+            <p>My Address </p>
+            <!-- <!-- <p>{{ order.shippingAddress1 }}</p> -->
+            <p>{{ order.shippingAddress1 }}</p> 
+            <!-- <p>123434 Oshogbo</p> -->
+            <p>{{ order.zip }} {{ order.city }}</p>
+            <!-- <p>Nigeria</p> -->
+            <p>{{ order.country }}</p>
+          </div>
+          <div class="col-4">
+            <h5 style="margin-bottom: 10px;">Customer Name</h5>
+            <!-- <p>Brain Donatus</p> -->
+            <p>{{ order.user?.name }}</p>
+          </div>
+          <div class="col-4">
+            <h5 style="margin-bottom: 10px;">Contact Information</h5>
+            <!-- <p>08025253</p> -->
+            <p>{{ order.phone }}</p>
+            <!-- <p>braindona@gmail.com</p> -->
+            <p>{{ order.user?.email }}</p>
+          </div>
+        </div>
+      </p-fieldset>
+    </p-card>
+  </div>
+</div>

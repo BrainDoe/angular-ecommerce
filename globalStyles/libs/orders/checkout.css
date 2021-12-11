@@ -1,0 +1,19 @@
+.checkout-page {
+  min-height: 500px;
+
+}
+.checkout-page button {
+  background-color: var(--primary-color);
+  border: 0;
+}
+
+.checkout-form {
+  margin-top: 25px;
+}
+
+.checkout-button {
+  margin-top: 20px;
+}
+.checkout-button button {
+  width: 100%;
+}

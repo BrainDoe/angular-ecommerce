@@ -18,7 +18,9 @@
               }
             ]
           }
-        ]
+        ],
+        "no-empty-function": "off",
+        "@typscript-eslint/no-empty-function": "off"
       }
     },
     {

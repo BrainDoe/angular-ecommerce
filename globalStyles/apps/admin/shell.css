@@ -1,0 +1,53 @@
+.admin {
+  height: 100%;
+}
+
+.admin-main {
+  width: calc(100% - 175px);
+  margin-left: 175px;
+}
+
+.sidebar {
+  position: fixed;
+  width: 175px;
+  background-color: #222;
+  height: 100%;
+  top: 0;
+}
+
+.logo {
+  padding: 20px;
+  width: 100%;
+}
+
+.logo img {
+  max-width: 100%;
+}
+
+.sidebar-links ul li {  
+  display: block;
+  list-style: none;
+}
+
+.sidebar ul li a {
+  color: var(--surface-a);
+  padding: 10px 15px;
+  display: block;
+}
+.sidebar ul li a:hover{
+  background-color: var(--blue-700);
+}
+
+.sidebar ul li a i {
+  margin-right: 10px;
+  float: left;
+}
+
+.sidebar ul li .logout {
+  color: var(--blue-500)
+}
+
+.page {
+  padding: 15px;
+}
+

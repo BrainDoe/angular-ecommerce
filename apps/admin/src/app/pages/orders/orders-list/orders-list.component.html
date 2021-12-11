@@ -1,0 +1,38 @@
+<p-toast></p-toast>
+<div class="admin">
+  <div class="page">
+    <p-card header="Orders" subheader="List of all Orders">
+      <div class="grid">
+        <div class="col-12">
+          <p-table [value]="orders" styleClass="p-datatable-gridlines">
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="name">User <p-sortIcon field="user"></p-sortIcon></th>
+                <th pSortableColumn="totalPrice">Total Price <p-sortIcon field="totalPrice"></p-sortIcon></th>
+                <th pSortableColumn="dateOrdered">Date Ordered <p-sortIcon field="dateOrdered"></p-sortIcon></th>
+                <th  pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                <th>Action</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-order>
+              <tr>
+                <td>{{ order.user.name }}</td>
+                <td>{{ order.totalPrice | currency }}</td>
+                <td>{{ order.dateOrdered | date: 'short' }}</td>
+                <td>
+                  <p-tag [value]="orderStatus[0].label" [severity]="orderStatus[0].color"></p-tag>
+                </td>
+                <td>
+                  <p-button (click)="deleteOrder(order._id)" icon="pi pi-trash" styleClass="p-button-danger mr-2"></p-button>
+                  <p-button (click)="orderDetail(order._id)" icon="pi pi-eye" styleClass="p-button-success"></p-button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="100000000" ></p-confirmDialog>

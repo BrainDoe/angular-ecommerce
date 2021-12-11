@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@env/*": ["environments/*"],
+      "@meerev/orders": ["libs/orders/src/index.ts"],
+      "@meerev/products": ["libs/products/src/index.ts"],
+      "@meerev/ui": ["libs/ui/src/index.ts"],
+      "@meerev/uix": ["libs/uix/src/index.ts"],
+      "@meerev/users": ["libs/users/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
