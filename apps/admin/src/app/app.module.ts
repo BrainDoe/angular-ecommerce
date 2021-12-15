@@ -1,3 +1,5 @@
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -66,6 +68,8 @@ const UX_MODULES = [
     BrowserModule, 
     BrowserAnimationsModule,
     HttpClientModule,
+    StoreModule,
+    EffectsModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,

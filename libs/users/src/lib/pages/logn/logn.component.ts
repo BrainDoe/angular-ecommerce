@@ -45,7 +45,7 @@ export class LognComponent implements OnInit {
     this.authService.login(loginData).subscribe(data => {
       this.authError = false
       this.localStorageService.setToken(data.token)
-      this.router.navigate(['/'])
+      this.router.navigate(['/checkout'])
       console.log(data)
     }, (error: HttpErrorResponse) => {
       this.authError = true

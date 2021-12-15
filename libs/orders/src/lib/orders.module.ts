@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Route } from '@angular/router';
 
+import { AuthGaurdService } from '@meerev/users';
 import { CartService } from './services/cart.service';
 
 import { CartIconComponent } from './components/cart-icon/cart-icon.component';
@@ -24,7 +25,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 export const ordersRoutes: Route[] = [
   { path: 'cart', component: CartPageComponent},
-  { path: 'checkout', component: CheckoutPageComponent},
+  { path: 'checkout', canActivate: [AuthGaurdService], component: CheckoutPageComponent},
   { path: 'success', component: ThankYouComponent},
 ];
 

@@ -1,3 +1,4 @@
+import { UsersFacade } from './../statex/users.facade';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 // import { environment } from '@env/environment'
@@ -13,7 +14,7 @@ declare const require: any;
 export class UsersService {
   apiUrl: string = environment.apiUrl + 'users'
 
-  constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient, private usersFacade: UsersFacade) {  }
 
   getCountries() {
     countriesLib.registerLocale(require('i18n-iso-countries/langs/en.json')); 
@@ -38,4 +39,17 @@ export class UsersService {
   deleteUser(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`)
   }
+
+  initAppSession() {
+    this.usersFacade.buildUserSession();
+  }
+
+  observeCurrentUser() {
+    return this.usersFacade.currentUser$;
+  }
+
+  isCurrentUserAuthenticated() {
+    return this.usersFacade.isAuthenticated$;
+  }
+
 }

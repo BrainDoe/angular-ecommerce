@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -9,13 +9,15 @@ import { ORDER_STATUS } from '@meerev/orders';
 import { Cart } from './../../model/cart.model';
 import { CartService } from '../../services/cart.service';
 import { OrdersService } from '../../services/orders.service';
+import { take, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'orders-checkout-page',
   templateUrl: './checkout-page.component.html',
   styleUrls: ['./checkout-page.component.css']
 })
-export class CheckoutPageComponent implements OnInit {
+export class CheckoutPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
@@ -28,11 +30,14 @@ export class CheckoutPageComponent implements OnInit {
   checkoutFormGroup!: FormGroup;
   isSubmitted = false;
   orderItems: OrderItem[] = [];
-  userId: any | string = '617e6161126587d738106135';
+  userId: string | any;
   countries: any[] | any = [];
+
+  endSubs$: Subject<any> = new Subject();
 
   ngOnInit(): void {
     this._initCheckoutForm();
+    this._autoFillUserData()
     this._getCartItems();
     this._getCountries();
   }
@@ -102,6 +107,28 @@ export class CheckoutPageComponent implements OnInit {
 
   get checkoutForm() {
     return this.checkoutFormGroup.controls;
+  }
+
+  private _autoFillUserData() {
+    this.usersService.observeCurrentUser().pipe(takeUntil(this.endSubs$)).subscribe(user => {
+      // console.log(user.phone)
+      if(user) {
+        this.userId = user.id;
+        this.checkoutForm.name.setValue(user.name);
+        this.checkoutForm.email.setValue(user.email);
+        this.checkoutForm.phone.setValue(user.phone);
+        this.checkoutForm.city.setValue(user.city);
+        this.checkoutForm.street.setValue(user.street);
+        this.checkoutForm.country.setValue(user.country);
+        this.checkoutForm.zip.setValue(user.zip);
+        this.checkoutForm.apartment.setValue(user.apartment);
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.endSubs$.next();
+    this.endSubs$.complete();
   }
 
 }
