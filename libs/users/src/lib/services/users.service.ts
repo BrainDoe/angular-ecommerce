@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 // import { environment } from '@env/environment'
 import { environment} from '../../../../../environments/environment'
-import { User } from '@meerev/users'
+import { User } from '../models/user.models'
 import { Observable } from 'rxjs';
 import * as countriesLib from 'i18n-iso-countries';
 declare const require: any;

@@ -2,7 +2,7 @@ import { LocalStorageService } from './local-storage.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { User, UsersService } from '@meerev/users';
+import { User } from '../models/user.models';
 import { environment} from '../../../../../environments/environment'
 import { Router } from '@angular/router';
 

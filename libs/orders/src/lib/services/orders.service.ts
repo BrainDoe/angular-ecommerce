@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 // import { environment } from '@env/environment'
 import { environment} from '../../../../../environments/environment'
-import { Order } from '@meerev/orders';
+import { Order } from '../model/order.model';
 import { OrderItem } from '../model/orderItem.model';
 import { Observable } from 'rxjs';
 import { StripeService } from 'ngx-stripe'
