@@ -1,5 +1,5 @@
 export class OrderItem {
-  product?: string
-  quantity?: number
+  product?: string | any
+  quantity?: number | any
   // orderItems?: any;
 }

@@ -23,6 +23,9 @@ import { MessagesComponent } from './shared/messages/messages.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
+// Ngx stripe
+import { NgxStripeModule } from 'ngx-stripe';
+
 
 const appRoute: Routes = [
   { path: '', redirectTo: '/home-page', pathMatch: 'full' },
@@ -42,6 +45,7 @@ const appRoute: Routes = [
     RouterModule.forRoot(appRoute), 
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
+    NgxStripeModule.forRoot('pk_test_51JcQfsKvvITcddeqjm0WwOyC1i2z5IGewA6ERMcqr5HIOMrXe4ekyVpaoogi6rR2gEUFFjWl3OSWLYetKaTPMluF00OYMu7S0v'),
     UiModule, 
     ButtonModule,
     ProductsModule,

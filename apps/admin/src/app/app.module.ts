@@ -1,11 +1,14 @@
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor, UsersModule } from '@meerev/users';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+
+// Ngx stripe
+import { NgxStripeModule } from 'ngx-stripe';
 
 
 // Primeng Moduless
@@ -42,6 +45,7 @@ import { OrdersListComponent } from './pages/orders/orders-list/orders-list.comp
 import { OrdersDetailsComponent } from './pages/orders/orders-details/orders-details.component';
 import { AppRoutingModule } from './app-routing.module';
 
+
 const UX_MODULES = [
   CardModule,
   ToolbarModule,
@@ -68,11 +72,12 @@ const UX_MODULES = [
     BrowserModule, 
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule,
-    EffectsModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    NgxStripeModule.forRoot('pk_test_51JcQfsKvvITcddeqjm0WwOyC1i2z5IGewA6ERMcqr5HIOMrXe4ekyVpaoogi6rR2gEUFFjWl3OSWLYetKaTPMluF00OYMu7S0v'),
     ...UX_MODULES,
     UsersModule
   ],

@@ -7,8 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class GalleryComponent implements OnInit {
   @Input() images: string[] | string | any;
+  @Input() mainImage!: string | any
 
-  selectedImageUrl!: string;
+  selectedImageUrl!: string; 
 
 
   constructor() { }

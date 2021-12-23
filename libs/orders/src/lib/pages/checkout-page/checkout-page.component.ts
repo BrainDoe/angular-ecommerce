@@ -1,3 +1,4 @@
+import { FakeSessionModel } from './../../services/orders.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,6 +20,15 @@ import { Subject } from 'rxjs';
 })
 export class CheckoutPageComponent implements OnInit, OnDestroy {
 
+  checkoutFormGroup!: FormGroup;
+  isSubmitted = false;
+  orderItems: OrderItem[] = [];
+  userId: string | any;
+  countries: any[] | any = [];
+  fakeSessionData: FakeSessionModel | any
+
+  endSubs$: Subject<any> = new Subject();
+
   constructor(
     private router: Router,
     private usersService: UsersService,
@@ -27,13 +37,6 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
     private ordersService: OrdersService
   ) { }
 
-  checkoutFormGroup!: FormGroup;
-  isSubmitted = false;
-  orderItems: OrderItem[] = [];
-  userId: string | any;
-  countries: any[] | any = [];
-
-  endSubs$: Subject<any> = new Subject();
 
   ngOnInit(): void {
     this._initCheckoutForm();
@@ -59,9 +62,9 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
     const cart: Cart = this.cartService.getCart();
     this.orderItems = cart.items.map((item) => {
       return {
-        product: item.productId,
+        product: item.productId, 
         quantity: item.quantity
-      };
+      }  
     });
   }
 
@@ -79,6 +82,7 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
       return;
     }
 
+    
     const order: Order = {
       orderItems: this.orderItems,
       shippingAddress1: this.checkoutForm.street.value,
@@ -91,18 +95,23 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
       user: this.userId,
       dateOrdered: `${Date.now()}`
     };
+    
+    this.ordersService.cacheOrderData(order);
 
-    this.ordersService.createOrder(order).subscribe(
-      () => {
-        console.log('Order successfull')
-        // Redirect to thank you page // payment
-        this.cartService.emptyCart();
-        this.router.navigate(['/success']);
-      },
-      () => {
-        //display some message to user
-      }
-    );
+    // fake checkout
+    this.ordersService.createFakeCheckoutSession(this.orderItems).subscribe((session: FakeSessionModel) => {
+      console.log(session)
+      session.line_items.map((lineItem: any) => {
+        this.router.navigate([`/payment/${session.id}/${lineItem.quantity}/${lineItem.name}/${lineItem.price}`])
+      });
+    })
+
+    // Stripe Checkout
+    // this.ordersService.createCheckoutSession(this.orderItems).subscribe((error) => {
+    //   if(error) {
+      //     console.log('error in redirecting to payment page');
+      //  }
+    // })
   }
 
   get checkoutForm() {

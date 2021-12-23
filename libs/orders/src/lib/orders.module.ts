@@ -21,12 +21,14 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
+import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 
 
 export const ordersRoutes: Route[] = [
   { path: 'cart', component: CartPageComponent},
   { path: 'checkout', canActivate: [AuthGaurdService], component: CheckoutPageComponent},
   { path: 'success', component: ThankYouComponent},
+  { path: 'payment/:session_id/:quantity/:name/:price', component: PaymentPageComponent},
 ];
 
 @NgModule({
@@ -37,7 +39,8 @@ export const ordersRoutes: Route[] = [
     CartPageComponent,
     OrderSummaryComponent,
     CheckoutPageComponent,
-    ThankYouComponent
+    ThankYouComponent,
+    PaymentPageComponent
   ],
   exports: [
     CartIconComponent,
@@ -45,6 +48,7 @@ export const ordersRoutes: Route[] = [
     OrderSummaryComponent,
     CheckoutPageComponent,
     ThankYouComponent,
+    PaymentPageComponent,
   ]
 })
 export class OrdersModule {

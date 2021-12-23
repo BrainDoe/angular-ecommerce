@@ -2,11 +2,11 @@
   <div class="grid" *ngIf="product">
     <div class="col-6">
       <uix-gallery [images]="product.images"></uix-gallery>
+      <!-- <uix-gallery [mainImage]="product.image"></uix-gallery> -->
     </div>
     <div class="col-6 product">
       <h2 class="product-name">{{ product.name }}</h2>
       <p class="product-desc">{{ product.description }}</p> 
-      <p class="product-desc">{{ product.richDescription }}</p> 
       <div class="product-rating">
         <p-rating [(ngModel)]="product.ratings" [cancel]="false" [disabled]="true"></p-rating>
       </div>
